@@ -20,7 +20,7 @@
           <th scope="row">{{ indexElement }}</th>
           <td>{{ request.nombre }}</td>
           <td>{{ request.email }}</td>
-          <td>{{ request.monto }}</td>
+          <td>${{ request.monto || 0 }} MXN</td>
           <td *ngIf="request.pagado">Si</td>
           <td *ngIf="!request.pagado">No</td>
         </tr>

@@ -19,5 +19,12 @@ export class RequestsService {
   getRequestsApproved() {
     return this.firestore.collection('solicitudes_aprobadas').valueChanges();
   }
+
+  postRequestApproved(data) {
+    return this.firestore.collection('solicitudes_aprobadas').add(data);
+  }
   
+  postRequestRejected(data) {
+    return this.firestore.collection('solicitudes_rechazadas').add(data);
+  }
 }

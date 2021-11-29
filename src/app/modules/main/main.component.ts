@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { User } from 'src/app/models/user';
 import { AmountService } from 'src/app/services/amount/amount.service';
+import { RequestsService } from 'src/app/services/requests/requests.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { AmountComponent } from 'src/app/shared/components/amount/amount.component';
 import { LoansComponent } from '../loans/loans.component';
@@ -18,12 +19,22 @@ export class MainComponent implements OnInit {
   amountSelected = 0;
   isShowingModal = false;
   totalAmount = 0;
+  motivoRechazo = [
+    'Mal Historial',
+    'Datos insuficientes',
+    'Falta de capital',
+    'Buro de Credito',
+    'Datos Falsos',
+    'Sin avales',
+    'Sin historial Crediticio'
+  ]
 
   @ViewChild(LoansComponent) child: LoansComponent;
   @ViewChild(AmountComponent) children: AmountComponent;
 
   constructor(private userService: UsersService,
-              private amountService: AmountService) { 
+              private amountService: AmountService,
+              private requestService: RequestsService) { 
     this.formData = new FormGroup({
       nombre: new FormControl(),
       email: new FormControl(),
@@ -73,6 +84,21 @@ console.log("FUNCIONO")
           this.totalAmount = this.totalAmount - this.amountSelected;
           this.amountService.updateAmount({
             capital_base: this.totalAmount
+          });
+          this.requestService.postRequestApproved({
+            nombre: this.formData.value.nombre,
+            email: this.formData.value.email,
+            monto: this.amountSelected,
+            pagado: this.formData.value.paidCredit
+          });
+        } else {
+          const randomRechazo = Math.floor(Math.random()*this.motivoRechazo.length);
+          console.log(this.amountSelected)
+          this.requestService.postRequestRejected({
+            nombre: this.formData.value.nombre,
+            email: this.formData.value.email,
+            monto: this.amountSelected,
+            motivo: this.motivoRechazo[randomRechazo]
           })
         }
       });
