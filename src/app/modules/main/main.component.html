@@ -1,0 +1,135 @@
+<app-navbar></app-navbar>
+<div class="w-100 bg-green">
+
+  <app-amount></app-amount>
+
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-purple" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="showModal()">Agregar
+      Usuario</button>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover table-borderless caption-top">
+      <caption>
+        <h3>Usuarios</h3>
+      </caption>
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Cedula</th>
+          <th scope="col">Pagó credito Pendiente?</th>
+          <th scope="col">Estatus Credito</th>
+          <th scope="col">Valor Solicitado</th>
+          <th scope="col">Historial de Creditos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of usersList; let indexElement = index;">
+          <th scope="row">{{ indexElement }}</th>
+          <td>{{ user.nombre }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.cedula }}</td>
+          <td>{{ user.pago_credito_pendiente }}</td>
+          <td>{{ user.credito_aprobado }}</td>
+          <td>${{ user.valor_solicitado || 0 }} MXN</td>
+          <td>{{ user.historial_prestamos }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  *ngIf="showModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formData">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="recipient-name" class="col-form-label">Nombre:</label>
+              <input type="text" class="form-control" id="name" formControlName="nombre"
+                placeholder="Ingresa tu nombre">
+            </div>
+            <div class="col-md-6 ms-auto"> <label for="message-text" class="col-form-label">Correo:</label>
+              <input type="text" class="form-control" id="email" formControlName="email" placeholder="Ingresa tu email">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="message-text" class="col-form-label">Cedula:</label>
+              <input type="text" class="form-control" id="cedula" formControlName="cedula"
+                placeholder="Ingresa tu cedula">
+            </div>
+            <div class="col-md-6 ms-auto">
+              <label for="message-text" class="col-form-label">¿Se Pagó el Credito Pendiente?</label>
+              <div class="d-flex justify-content-center">
+                <input type="radio" class="btn-check" id="pagado" autocomplete="off" checked
+                  formControlName="paidCredit" value="Si">
+                <label class="btn btn-outline-primary btn-group-lg" for="pagado"> Si</label>
+                <input type="radio" class="btn-check" id="noPagado" autocomplete="off" formControlName="paidCredit"
+                  value="No">
+                <label class="btn btn-outline-primary" for="noPagado"> No</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="message-text" class="col-form-label">Fecha a pagar:</label>
+              <input type="date" class="form-control" id="fechaPago" formControlName="fechaPago">
+            </div>
+            <div class="col-md-6 ms-auto">
+              <label for="message-text" class="col-form-label">Estado de Credito:</label>
+              <input type="radio" class="btn-check" id="btnAprobado" autocomplete="off" checked
+                formControlName="approvedCredit" value="aprobado">
+              <label class="btn btn-outline-primary" for="btnAprobado">Aprobado</label>
+              <input type="radio" class="btn-check" id="btnRechazado" autocomplete="off"
+                formControlName="approvedCredit" value="rechazado">
+              <label class="btn btn-outline-primary" for="btnRechazado">Rechazado</label>
+            </div>
+          </div>
+          <app-loans (amountSelected)="getValueFromChild($event)"></app-loans>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-purple" (click)="saveUser()" data-bs-dismiss="modal">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
+
+<!-- <div class="modal-body" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">.col-md-4</div>
+      <div class="col-md-4 ms-auto">.col-md-4 .ms-auto</div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 ms-auto">.col-md-3 .ms-auto</div>
+      <div class="col-md-2 ms-auto">.col-md-2 .ms-auto</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 ms-auto">.col-md-6 .ms-auto</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-9">
+        Level 1: .col-sm-9
+        <div class="row">
+          <div class="col-8 col-sm-6">
+            Level 2: .col-8 .col-sm-6
+          </div>
+          <div class="col-4 col-sm-6">
+            Level 2: .col-4 .col-sm-6
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

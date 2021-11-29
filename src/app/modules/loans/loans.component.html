@@ -1,0 +1,9 @@
+<div class="mb-2">
+  <p class="budget">¿Cuánto necesitas?</p>
+  <label for="range">
+    <input type="range" name="range" id="range" min="10000" max="100000" step="5000" value="50000"
+      [(ngModel)]="amountValue" (click)="checkValue()"/>
+  </label>
+  <output for="range" class="output">${{ amountValue }} MXN</output>
+</div>
+<router-outlet></router-outlet>

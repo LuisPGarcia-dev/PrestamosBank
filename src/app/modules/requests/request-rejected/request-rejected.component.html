@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<div class="w-100 bg-green">
+  <app-amount></app-amount>
+  <div class="table-responsive">
+    <table class="table table-hover table-borderless caption-top table-responsive mt-5 mb-5">
+      <caption>
+        <h3>Solicitudes Rechazadas</h3>
+      </caption>
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Motivo</th>
+          <th scope="col">Monto Negado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of requestsList; let indexElement = index;">
+          <th scope="row">{{ indexElement }}</th>
+          <td>{{ request.nombre }}</td>
+          <td>{{ request.email }}</td>
+          <td>{{ request.motivo }}</td>
+          <td>${{ request.monto_solicitado || 0 }} MXN</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "prestamosbank-bef9c": {
+      "hosting": {
+        "PrestamosBank": [
+          "prestamosbank-bef9c"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "prestamosbank-bef9c"
+  }
+}

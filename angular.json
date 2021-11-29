@@ -31,6 +31,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.less"
             ],
             "scripts": []
@@ -122,6 +123,16 @@
             "production": {
               "devServerTarget": "PrestamosBank:serve:production"
             }
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "PrestamosBank:build:production",
+            "firebaseProject": "prestamosbank-bef9c",
+            "firebaseHostingSite": "prestamosbank-bef9c"
           }
         }
       }
